@@ -2,12 +2,12 @@
 import sqlite3 as lite
 import pandas as pd
 
-#Tentando conexão com o banco de dados
-#try:
+#Conexão com o banco de dados
 conn = lite.connect("DataBase1")
 cursor = conn.cursor()
 
-#Tentando criar tabela de pessoas onde estão os dados dos usuários
+#Classe da tabela de Pessoas (Nomeada como "Persons")
+#Funções: Criar tabela caso nao exista, inserir, alterar, mostrar todos os dados, deletar dados ou deletar todos os dados
 try:
     class BancoPersons:
         def CriaTabela():
@@ -25,8 +25,6 @@ try:
                 print("Tabela Persons Criada com Sucesso")
             except:
                 print("Erro 001")
-        
-        #Inserir valor
         try:
             def InserirValor():
                 nome = str(input("Nome: "))
@@ -47,6 +45,7 @@ try:
                 showdata = ('''
                     SELECT *
                     FROM Persons
+                    ORDER BY PessoaID asc
                     ''')
                 cursor.execute(showdata)
                 conn.commit()
@@ -129,6 +128,7 @@ except:
 
 BancoPersons.CriaTabela()
 
+#Menu do Usuario
 try:
     def FuncoesUser():
         print("1- Inserir Novo Usuario\n2- Deletar Dado\n3- Mostrar todos os dados\n4- Deletar todos os dados\n5- Alterar Dado")
@@ -148,8 +148,9 @@ try:
             print("Não reconhecido")
 except:
     print("Erro 002")
-
 try:
+    #Criando tabela de despesas, funçôes:
+    #Criar tabela caso não exista, inserir nova despesa, deletar despesa, alterar despesa, mostrar todas as despesas
     class BancoDespesas:
         def CriarTable():
             command = (f"""
@@ -227,6 +228,7 @@ except:
 
 BancoDespesas.CriarTable()
 
+#Menu do usuario
 def ActionDesp():
     print("1- Nova despesa\n2- Deletar Despesa\n3- Alterar Despesa\n4- Mostrar")
     act = int(input("R:"))
