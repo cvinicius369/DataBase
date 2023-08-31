@@ -1,3 +1,6 @@
+#Coded by: Caio Vinicius (cvinicius369)
+#E-mail: vinicius182102@gmail.com
+#Project: Database in Python
 #Importanto bibliotecas que serão utilizadas no projeto
 import sqlite3 as lite
 import pandas as pd
