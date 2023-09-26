@@ -4,6 +4,8 @@
 #Importanto bibliotecas que serão utilizadas no projeto
 import sqlite3 as lite
 import pandas as pd
+import tkinter as tk
+from tkinter import ttk
 
 #Conexão com o banco de dados
 conn = lite.connect("DataBase1")
@@ -60,7 +62,6 @@ try:
                 print("-------------------------------------------------------------")
                 print(tabela)
                 print("-------------------------------------------------------------")
-                FuncoesUser()
         except:
             print("Erro 003")
         
@@ -80,7 +81,6 @@ try:
                 print("-------------------------------------------------------------")
                 print("Cadastro deletado! ")
                 print("-------------------------------------------------------------")
-                FuncoesUser()
         except:
             print("Erro 004")
         
@@ -94,10 +94,16 @@ try:
                 conn.commit()
                 tabela_compact = cursor.fetchall()
                 tabela = pd.DataFrame(tabela_compact, columns=['ID', 'Nome', 'Idade', 'Salario', 'E-mail', 'Senha'])
+                tree = ttk.Treeview(columns=list(tabela.columns), show='headings')
+                for column in tabela.columns:
+                    tree.heading(column, text=column)
+                    tree.column(column, width=100)
+                for index, row in tabela.iterrows():
+                    tree.insert('', 'end', values=list(row))
+                tree.pack()
                 print("-------------------------------------------------------------")
                 print(tabela)
                 print("-------------------------------------------------------------")
-                FuncoesUser()
         except:
             print("Erro 005")
 
@@ -114,8 +120,6 @@ try:
                     print("-------------------------------------------------------------")
                     print("Dados deletados com sucesso!")
                     print("-------------------------------------------------------------")
-                else:
-                    FuncoesUser()
         except:
             print("Erro 006")
         
@@ -139,34 +143,12 @@ try:
                 print("-------------------------------------------------------------")
                 print(tabela)
                 print("-------------------------------------------------------------")
-                FuncoesUser()
         except:
             print("Erro 007")
 except:
     print("Erro 000")
 
 BancoPersons.CriaTabela()
-
-#Menu do Usuario
-try:
-    def FuncoesUser():
-        print("1- Inserir Novo Usuario\n2- Deletar Dado\n3- Mostrar todos os dados\n4- Deletar todos os dados\n5- Alterar Dado")
-        fu = int(input("R: "))
-
-        if fu == 1:
-            BancoPersons.InserirValor()
-        elif fu == 2:
-            BancoPersons.DeletarDado()
-        elif fu == 3:
-            BancoPersons.Mostrar()
-        elif fu ==4:
-            BancoPersons.DeleteAll()
-        elif fu == 5:
-            BancoPersons.Alterar()
-        else:
-            print("Não reconhecido")
-except:
-    print("Erro 002")
 try:
     #Criando tabela de despesas, funçôes:
     #Criar tabela caso não exista, inserir nova despesa, deletar despesa, alterar despesa, mostrar todas as despesas
@@ -250,6 +232,14 @@ try:
             conn.commit()
             tabela_compact = cursor.fetchall()
             tabela = pd.DataFrame(tabela_compact, columns=['ID', 'Valor', 'Credor', 'Provedor', 'Situação', 'Mês'])
+            tree = ttk.Treeview(columns=list(tabela.columns), show='headings')
+            for column in tabela.columns:
+                tree.heading(column, text=column)
+                tree.column(column, width=100)
+            for index, row in tabela.iterrows():
+                tree.insert('', 'end', values=list(row))
+            tree.pack()
+            
             print(tabela)
             print("-------------------------------------------------------------")
             ActionDesp()
@@ -274,28 +264,17 @@ BancoDespesas.CriarTable()
 
 #Menu do usuario
 def ActionDesp():
-    print("1- Nova despesa\n2- Deletar Despesa\n3- Alterar Despesa\n4- Mostrar\n5- Consulta especifica")
-    act = int(input("R:"))
 
-    if act == 1:
-        print("-------------------------------------------------------------")
-        BancoDespesas.Insert()
-        print("-------------------------------------------------------------")
-    elif act == 2:
-        print("-------------------------------------------------------------")
-        BancoDespesas.Delete()
-        print("-------------------------------------------------------------")
-    elif act == 3:
-        print("-------------------------------------------------------------")
-        BancoDespesas.Alterar()
-        print("-------------------------------------------------------------")
-    elif act == 4:
-        print("-------------------------------------------------------------")
+    def Perons():
+        botao3.place(x=99999999, y=9999999999)
+        botao4.place(x=99999999, y=9999999999)
+        BancoPersons.Mostrar()
+    def Despesa():
+        botao3.place(x=99999999, y=9999999999)
+        botao4.place(x=99999999, y=9999999999)
         BancoDespesas.Mostra()
-        print("-------------------------------------------------------------")
-    elif act == 5:
-        print("-------------------------------------------------------------")
-        BancoDespesas.Query()
-        print("-------------------------------------------------------------")
-    else:
-        print("Não reconhecido")
+
+    botao3 = ttk.Button(text="Mostrar Tabela", width=15, command=Despesa)
+    botao3.place(x=25, y=234)
+    botao4 = ttk.Button(text="Mostrar Pessoas", width=15, command=Perons)
+    botao4.place(x=25, y=264)

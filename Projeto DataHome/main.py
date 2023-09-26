@@ -4,27 +4,31 @@
 #Importações
 import database
 import datetime as dt
-import time
+import tkinter as tk
+from tkinter import ttk
+
+janela = tk.Tk()
+janela.title("DataBaseHome")
+janela.geometry("650x300")
 
 #Definição do horario em que iniciou o sistema
 hoje = dt.datetime.today()
 
-#Menu
-print("-------------------------------------------------------------")
-print(hoje)
-print("-------------------------------------------------------------")
-print("1- Cadastros\n2- Despesas")
-act = int(input("R: "))
-
-#Chamado das classes em database.py permitindo ter acesso ao gerenciamento do banco de dados
-if act == 1:
-    print("-------------------------------------------------------------")
+def Perons():
+    botao1.place(x=99999999, y=9999999999)
+    botao2.place(x=99999999, y=9999999999)
     database.FuncoesUser()
-    print("-------------------------------------------------------------")
-
-elif act == 2:
-    print("-------------------------------------------------------------")
+def Despesa():
+    botao1.place(x=99999999, y=9999999999)
+    botao2.place(x=99999999, y=9999999999)
     database.ActionDesp()
-    print("-------------------------------------------------------------")
-else:
-    print("Não reconhecido")
+
+#Menu
+labelH = ttk.Label(text=hoje)
+labelH.place(x=25, y=204)
+botao1 = ttk.Button(text="Cadastros", width=10, command=Perons)
+botao1.place(x=25, y=234)
+botao2 = ttk.Button(text="Despesas", width=10, command=Despesa)
+botao2.place(x=25, y=264)
+
+janela.mainloop()
