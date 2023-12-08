@@ -2,14 +2,15 @@
 #E-mail: vinicius182102@gmail.com
 #Project: Database in Python
 #Importanto bibliotecas que serão utilizadas no projeto
-import sqlite3 as lite
-import pandas as pd
-import tkinter as tk
+import pandas   as pd
+import tkinter  as tk
+import sqlite3  as lite
+
 from tkinter import ttk
 
 #Conexão com o banco de dados
-conn = lite.connect("DataBase1")
-cursor = conn.cursor()
+conn   =  lite.connect("DataBase1")
+cursor =  conn.cursor()
 
 #Classe da tabela de Pessoas (Nomeada como "Persons")
 #Funções: Criar tabela caso nao exista, inserir, alterar, mostrar todos os dados, deletar dados ou deletar todos os dados
@@ -35,11 +36,11 @@ try:
         try:
             def InserirValor():
                 print("-------------------------------------------------------------")
-                nome = str(input("Nome: "))
-                idade = int(input("Idade: "))
+                nome    = str(input("Nome: "))
+                idade   = int(input("Idade: "))
                 salario = float(input("Salario: "))
-                email = str(input("E-mail: "))
-                senha = str(input("Senha: "))
+                email   = str(input("E-mail: "))
+                senha   = str(input("Senha: "))
 
                 command1 = (f"""
                     INSERT INTO Persons (Nome, Idade, Salario, Email, Senha)
@@ -86,21 +87,20 @@ try:
         
         try:
             def Mostrar():
-                command = (f"""
-                    SELECT *
-                    FROM Persons
-                """)
+                command = (f"""SELECT * FROM Persons""")
                 cursor.execute(command)
                 conn.commit()
                 tabela_compact = cursor.fetchall()
                 tabela = pd.DataFrame(tabela_compact, columns=['ID', 'Nome', 'Idade', 'Salario', 'E-mail', 'Senha'])
                 tree = ttk.Treeview(columns=list(tabela.columns), show='headings')
+                
                 for column in tabela.columns:
                     tree.heading(column, text=column)
                     tree.column(column, width=100)
                 for index, row in tabela.iterrows():
                     tree.insert('', 'end', values=list(row))
                 tree.pack()
+                
                 print("-------------------------------------------------------------")
                 print(tabela)
                 print("-------------------------------------------------------------")
@@ -112,9 +112,7 @@ try:
                 print("-------------------------------------------------------------")
                 verify = int(input("Tem certeza de que quer deletar todos os dados? 1-SIM/2-NAO: "))
                 if verify == 1:
-                    command = (f"""
-                        DELETE FROM Persons
-                    """)
+                    command = (f""" DELETE FROM Persons """)
                     cursor.execute(command)
                     conn.commit()
                     print("-------------------------------------------------------------")
@@ -126,9 +124,9 @@ try:
         try:
             def Alterar():
                 print("-------------------------------------------------------------")
-                val = input("Qual valor deseja alterar: ")
-                col = str(input("De qual coluna: "))
-                id = int(input("Qual o Id do cadastro que deseja Alterar: "))
+                val  = input("Qual valor deseja alterar: ")
+                col  = str(input("De qual coluna: "))
+                id   = int(input("Qual o Id do cadastro que deseja Alterar: "))
 
                 command = (f"""
                     UPDATE Persons
@@ -171,11 +169,11 @@ try:
             print("-------------------------------------------------------------")
         
         def Insert():
-            valor = input("Qual o valor da despesa: ")
+            valor  = input("Qual o valor da despesa: ")
             credor = str(input("Quem é o credor: "))
-            prov = str(input("Quem é o provedor: "))
-            sit = str(input("Qual situação: "))
-            mes = str(input("Mês proveniente: "))
+            prov   = str(input("Quem é o provedor: "))
+            sit    = str(input("Qual situação: "))
+            mes    = str(input("Mês proveniente: "))
 
             command = (f"""
                 INSERT INTO Despesas(valor, credor, provedor, situacao, proveniente)
@@ -191,8 +189,8 @@ try:
 
         def Alterar():
             valor = input("Qual valor deseja alterar: ")
-            col = str(input("Qual a coluna: "))
-            id = int(input("Qual o id da despesa: "))
+            col   = str(input("Qual a coluna: "))
+            id    = int(input("Qual o id da despesa: "))
 
             command = (f"""
                 UPDATE Despesas
@@ -233,6 +231,7 @@ try:
             tabela_compact = cursor.fetchall()
             tabela = pd.DataFrame(tabela_compact, columns=['ID', 'Valor', 'Credor', 'Provedor', 'Situação', 'Mês'])
             tree = ttk.Treeview(columns=list(tabela.columns), show='headings')
+            
             for column in tabela.columns:
                 tree.heading(column, text=column)
                 tree.column(column, width=100)
