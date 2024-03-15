@@ -38,4 +38,9 @@ Se você encontrar algum problema, bug ou tiver sugestões para melhorias, sinta
 Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
 
 ---
+Tecnologias Utilizadas
+
+<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue&color=black"/> <img src="https://img.shields.io/badge/pypi-3775A9?style=for-the-badge&logo=pypi&logoColor=white"/> <img src="https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white"/>
+
+---
 Desenvolvido por Caio Vinicius A. Faguette
